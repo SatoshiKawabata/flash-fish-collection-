@@ -1,0 +1,47 @@
+K 25
+svn:wc:ra_dav:version-url
+V 96
+/svn/pigglife/!svn/ver/29576/branches/bamba/DotFes/fish-collection-flash/src/fish/collection/net
+END
+SimpleSocketClient.as
+K 25
+svn:wc:ra_dav:version-url
+V 118
+/svn/pigglife/!svn/ver/29576/branches/bamba/DotFes/fish-collection-flash/src/fish/collection/net/SimpleSocketClient.as
+END
+ISimpleSocketModel.as
+K 25
+svn:wc:ra_dav:version-url
+V 118
+/svn/pigglife/!svn/ver/29576/branches/bamba/DotFes/fish-collection-flash/src/fish/collection/net/ISimpleSocketModel.as
+END
+WebSocket.as
+K 25
+svn:wc:ra_dav:version-url
+V 109
+/svn/pigglife/!svn/ver/29576/branches/bamba/DotFes/fish-collection-flash/src/fish/collection/net/WebSocket.as
+END
+VisionClientWebSocket.as
+K 25
+svn:wc:ra_dav:version-url
+V 121
+/svn/pigglife/!svn/ver/29576/branches/bamba/DotFes/fish-collection-flash/src/fish/collection/net/VisionClientWebSocket.as
+END
+WebSocketHandler.as
+K 25
+svn:wc:ra_dav:version-url
+V 116
+/svn/pigglife/!svn/ver/29576/branches/bamba/DotFes/fish-collection-flash/src/fish/collection/net/WebSocketHandler.as
+END
+VisionClient.as
+K 25
+svn:wc:ra_dav:version-url
+V 112
+/svn/pigglife/!svn/ver/29576/branches/bamba/DotFes/fish-collection-flash/src/fish/collection/net/VisionClient.as
+END
+IVisionClientDelegate.as
+K 25
+svn:wc:ra_dav:version-url
+V 121
+/svn/pigglife/!svn/ver/29576/branches/bamba/DotFes/fish-collection-flash/src/fish/collection/net/IVisionClientDelegate.as
+END
