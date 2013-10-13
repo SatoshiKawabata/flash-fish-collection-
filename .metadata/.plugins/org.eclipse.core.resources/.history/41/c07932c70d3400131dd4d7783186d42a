@@ -1,0 +1,9 @@
+package fish.collection.game.view
+{
+	public class IKSample
+	{
+		public function IKSample()
+		{
+		}
+	}
+}

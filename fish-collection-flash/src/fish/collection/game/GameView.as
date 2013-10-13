@@ -4,8 +4,11 @@ package fish.collection.game
 	import fish.collection.game.view.hogeSprite;
 	
 	import flash.display.Graphics;
+	import flash.display.MovieClip;
 	import flash.display.Sprite;
 	import flash.events.Event;
+	
+	import org.osmf.events.TimeEvent;
 	
 	import pigglife.view.RootStage;
 	
@@ -23,6 +26,8 @@ package fish.collection.game
 		private var boids:Array = new Array();
 		// 描画用Sprite
 		private var sprites:Array = new Array();
+		private var _fishes:Vector.<MovieClip>;
+		
 		// 魚描画レイヤー
 		private var _fishLayer:Sprite;
 		
@@ -45,8 +50,10 @@ package fish.collection.game
 			
 			// Boid初期設定
 			var i:int;
+			_fishes = new Vector.<MovieClip>();
 			for (i = 0; i < NUMBOIDS; i++) 
 			{
+				// Boid設定
 				var b:Boid = new Boid();
 				const ph:Number = i * 2.0 * Math.PI / NUMBOIDS;
 				b.px = 200 + 90 * Math.cos(ph) * Math.sin(ph);
@@ -55,11 +62,18 @@ package fish.collection.game
 				b.vy = 40 * Math.sin(ph + Math.PI / 2 + 1);
 				boids[i] = b;
 				
+				// 描画設定
 				sprites[i] = new Sprite();
+				_fishes[i] = new Deme();
+				_fishes[i].scaleX = _fishes[i].scaleY = 0.7; 
+				sprites[i].addChild(_fishes[i]);
 				var g:Graphics = sprites[i].graphics;
 				g.lineStyle(1, 0x0055ff);
-				g.moveTo(4, 0); g.lineTo(-3, -3);
-				g.lineTo(-3, 3); g.lineTo(4, 0); g.lineTo(-8, 0);
+				g.moveTo(4, 0); 
+				g.lineTo(-3, -3);
+				g.lineTo(-3, 3); 
+				g.lineTo(4, 0); 
+				g.lineTo(-8, 0);
 				sprites[i].x = b.px;
 				sprites[i].y = b.py;
 			}
@@ -103,13 +117,30 @@ package fish.collection.game
 				b = boids[i];  
 				b.force(boids);
 			}  
+			
+			// 回転値の差
+			var rm:Number = .0;
+			// 現在の回転値
+			var crv:Number = .0;
+			// 次の回転値
+			var nrv:Number = .0;
 			for (i = 0; i < NUMBOIDS; i++) 
 			{             
 				b = boids[i];
 				b.update();
 				sprites[i].x = b.px;
 				sprites[i].y = b.py;
-				sprites[i].rotation = Math.atan2(b.vy, b.vx) * 180 / Math.PI;
+				
+				// 次の回転値
+				nrv = Math.atan2(b.vy, b.vx) * 180 / Math.PI + 90;
+				crv = sprites[i].rotation;
+				// 現在の回転地との差(右回転:正 左回転:負)
+				rm = (crv+360) - (nrv+360);
+				
+				
+				
+				// 回転地を更新
+				//sprites[i].rotation = nrv;
 			}
 		}
 	}
