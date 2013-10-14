@@ -1,0 +1,9 @@
+package fish.collection.game.util
+{
+	public class Util
+	{
+		public function Util()
+		{
+		}
+	}
+}

@@ -1,5 +1,6 @@
 package fish.collection.game
 {
+	import fish.collection.game.util.Util;
 	import fish.collection.game.view.Boid;
 	import fish.collection.game.view.hogeSprite;
 	
@@ -21,12 +22,12 @@ package fish.collection.game
 		private var _container:Sprite;
 		
 		// Boidの数
-		private const NUMBOIDS:int = 80;
+		private const NUMBOIDS:int = 40;
 		// Boidクラス
-		private var boids:Array = new Array();
+		private var _boids:Vector.<Boid>;
 		// 描画用Sprite
-		private var sprites:Array = new Array();
-		private var _fishes:Vector.<MovieClip>;
+		//private var sprites:Array = new Array();
+		//private var _fishes:Vector.<MovieClip>;
 		
 		// 魚描画レイヤー
 		private var _fishLayer:Sprite;
@@ -50,18 +51,25 @@ package fish.collection.game
 			
 			// Boid初期設定
 			var i:int;
-			_fishes = new Vector.<MovieClip>();
+			_boids = new Vector.<Boid>();
+			//_fishes = new Vector.<MovieClip>();
+			_fishLayer = new Sprite();
 			for (i = 0; i < NUMBOIDS; i++) 
 			{
 				// Boid設定
 				var b:Boid = new Boid();
 				const ph:Number = i * 2.0 * Math.PI / NUMBOIDS;
-				b.px = 200 + 90 * Math.cos(ph) * Math.sin(ph);
-				b.py = 200 + 40 * Math.sin(ph);
-				b.vx = 90 * Math.cos(ph + Math.PI / 2 + 1);
-				b.vy = 40 * Math.sin(ph + Math.PI / 2 + 1);
-				boids[i] = b;
+				b.initialize( 
+					200 + 90 * Math.cos(ph) * Math.sin(ph),
+					200 + 40 * Math.sin(ph),
+					90 * Math.cos(ph + Math.PI / 2 + 1),
+					40 * Math.sin(ph + Math.PI / 2 + 1)
+					);
+				b.setFishCode('いまはなにも設定できない', 0.7);
+				_fishLayer.addChild(b);
+				_boids[i] = b;
 				
+				/*
 				// 描画設定
 				sprites[i] = new Sprite();
 				_fishes[i] = new Deme();
@@ -76,13 +84,15 @@ package fish.collection.game
 				g.lineTo(-8, 0);
 				sprites[i].x = b.px;
 				sprites[i].y = b.py;
+				*/
 			}
-			
+			/*
 			_fishLayer = new Sprite();
 			for (i = 0; i < NUMBOIDS; i++)
 			{
 				_fishLayer.addChild(sprites[i]);
 			}
+			*/
 			_container.addChild(_fishLayer);
 			
 			/*
@@ -114,30 +124,38 @@ package fish.collection.game
 			var i:int;
 			for (i = 0; i < NUMBOIDS; i++) 
 			{
-				b = boids[i];  
-				b.force(boids);
+				b = _boids[i];  
+				b.force(_boids);
 			}  
 			
 			// 回転値の差
-			var rm:Number = .0;
+			var rotationMargin:Number = .0;
 			// 現在の回転値
-			var crv:Number = .0;
+			var currentRotaionVal:Number = .0;
 			// 次の回転値
-			var nrv:Number = .0;
+			var nextRotationVal:Number = .0;
 			for (i = 0; i < NUMBOIDS; i++) 
 			{             
-				b = boids[i];
+				b = _boids[i];
 				b.update();
-				sprites[i].x = b.px;
-				sprites[i].y = b.py;
-				
+				/*
+				_boids[i].x = b.px;
+				_boids[i].y = b.py;
+				*/
+				/*
 				// 次の回転値
-				nrv = Math.atan2(b.vy, b.vx) * 180 / Math.PI + 90;
-				crv = sprites[i].rotation;
+				nextRotationVal = Math.atan2(b.vy, b.vx) * 180 / Math.PI + 90;
+				currentRotaionVal = _boids[i].rotation;
 				// 現在の回転地との差(右回転:正 左回転:負)
-				rm = (crv+360) - (nrv+360);
+				rotationMargin = (currentRotaionVal+360) - (nextRotationVal+360);
+				_boids[i].fishMc.body_whole.rotation = nextRotationVal;
 				
+				_boids[i].fishMc.tail_whole.x = Util.smoothMoveFunc(_boids[i].fishMc.tail_whole.x, - 47.3 * Math.sin(nextRotationVal * Math.PI / 180.0), 0.2);
+				_boids[i].fishMc.tail_whole.y = Util.smoothMoveFunc(_boids[i].fishMc.tail_whole.y, 47.3 * Math.cos(nextRotationVal * Math.PI / 180.0), 0.2);
 				
+				_boids[i].fishMc.tail_whole.rotation = Util.smoothMoveFunc(_boids[i].fishMc.tail_whole.rotation, nextRotationVal, 0.2);
+				*/
+				//trace(_fishes[i].tail_whole.x, _fishes[i].tail_whole.y);
 				
 				// 回転地を更新
 				//sprites[i].rotation = nrv;

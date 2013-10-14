@@ -1,0 +1,10 @@
+package fish.collection.game
+{
+	public class GameComponent
+	{
+		public function GameComponent()
+		{
+		}
+
+	}
+}
